@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import { Empty } from './Empty'
 import { PlusIcon } from './PlusIcon'
@@ -16,6 +16,14 @@ export function Tasks() {
   const [tasksList, setTasksList] = useState<TaskList[]>([])
   const numberOfTasksDone = tasksList.filter(task => task.isDone === true)
 
+  useEffect(() => {
+    const storagedTasksList = window.localStorage.getItem('to-doList');
+
+    if (storagedTasksList) {
+      setTasksList(JSON.parse(storagedTasksList));
+      }
+  }, [])
+
   function handleCreateNewTask(event: FormEvent) {
     event.preventDefault()
 
@@ -26,6 +34,8 @@ export function Tasks() {
     }
 
     setTasksList([...tasksList, newTask])
+
+    window.localStorage.setItem('to-doList', JSON.stringify([...tasksList, newTask]))
 
     setTask('')
   }
@@ -47,6 +57,8 @@ export function Tasks() {
     })
 
     setTasksList(newTasks)
+
+    window.localStorage.setItem('to-doList', JSON.stringify(newTasks))
   }
 
   function deleteTask(taskId: string) {
@@ -55,6 +67,8 @@ export function Tasks() {
     })
 
     setTasksList(tasksWithoutDeletedOne);
+
+    window.localStorage.setItem('to-doList', JSON.stringify(tasksWithoutDeletedOne))
   }
 
   return (
