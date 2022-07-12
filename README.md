@@ -10,8 +10,6 @@ O desafio foi proposto para reforçar os conceitos iniciais mais importantes do 
 - [x] Remover uma tarefa da listagem
 - [x] Mostrar o progresso de conclusão das tarefas
 
-<br/>
-
 ## Tecnologias e ferramentas utilizadas
 - ReactJS (Vite)
 - CSS Modules
